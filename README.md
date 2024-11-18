@@ -1,5 +1,5 @@
 # UniHub 🏫
-Web Project Elabored by Ahmed Essouaied and Habib Bekir
+Web Project Elabored by Ahmed Essouaied and Habib Bekir.
 
 ## Get Started
 
