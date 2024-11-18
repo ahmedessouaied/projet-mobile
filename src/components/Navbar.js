@@ -55,6 +55,9 @@ const Navbar = () => {
                         <a href="/faq" className="text-gray-700 hover:scale-110 transition duration-300">
                             FAQ
                         </a>
+                        <a href="/admin" className="text-gray-700 hover:scale-110 transition duration-300">
+                            Admin Dashboard
+                        </a>
                     </div>
 
                     {/* Desktop Right Section */}
@@ -138,6 +141,10 @@ const Navbar = () => {
                     <a href="/faq" className="block text-gray-700 hover:text-blue-600 py-2 text-base">
                         FAQ
                     </a>
+                    <a href="/admin" className="block text-gray-700 hover:text-blue-600 py-2 text-base">
+                        Admin Dashboard
+                    </a>
+                    
                     <div className="pt-2">
                         {/* Mobile Search Input */}
                         <div className="relative">
