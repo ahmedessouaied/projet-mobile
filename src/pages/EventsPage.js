@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import SearchAndFilter from "../components/SearchAndFilter";
 import EventCard from '../components/EventCard';
 import EmptyState from '../components/EmptyState';
+import Navbar from "../components/Navbar";
 
 const EventsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +21,7 @@ const EventsPage = () => {
             price: 50,
             capacity: 200,
             organizer: "Computer Science Club",
-            image: null,
+            image: "https://www.supcom.tn/storage/app/public/evenements/October2023/Jhm90kQjo2d83ynNQGhw.jpg",
         },
         {
             id: 2,
@@ -38,7 +39,7 @@ const EventsPage = () => {
         {
             id: 3,
             title: "IndabaX Tunisia 2024",
-            description: "Join us for a day of technological innovation and networking with industry experts.A9wa event fik ya tounes.",
+            description: "Join us for a day of technological innovation and networking with industry experts.",
             category: "competition",
             date: "2024-12-20",
             time: "14:00",
@@ -65,6 +66,8 @@ const EventsPage = () => {
     });
 
     return (
+        <>
+        <Navbar />
         <div className="container mx-auto px-4 py-8">
             <Header />
             <SearchAndFilter
@@ -82,6 +85,7 @@ const EventsPage = () => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 

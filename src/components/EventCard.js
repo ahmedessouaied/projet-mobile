@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Image, Calendar, Clock, MapPin, Users } from "lucide-react";
 
 const EventCard = ({ event }) => {
+    const navigate = useNavigate();
+    const handleEventDetails = () => {
+        navigate('/event-details');
+    }
     // Function to truncate description to a specific length
     const truncateDescription = (text, maxLength = 120) => {
         if (text.length <= maxLength) return text;
@@ -60,7 +65,10 @@ const EventCard = ({ event }) => {
                 {/* Footer */}
                 <div className="flex justify-between items-center pt-4 border-t">
                     <span className="text-lg font-semibold">{event.price === 0 ? 'Free' : `${event.price} DT`}</span>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <button
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                        onClick={handleEventDetails}
+                    >
                         Register Now
                     </button>
                 </div>

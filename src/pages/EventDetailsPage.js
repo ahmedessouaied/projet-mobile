@@ -6,16 +6,17 @@ import LocationMap from "../components/LocationMap";
 import EventPriceCard from "../components/EventPriceCard";
 import EventDetailsCard from "../components/EventDetailsCard";
 import ActionButtons from "../components/ActionButtons";
+import Navbar from "../components/Navbar";
 
 const EventDetailsPage = () => {
   const event = {
+    image: "https://www.supcom.tn/storage/app/public/evenements/October2023/Jhm90kQjo2d83ynNQGhw.jpg",
     title: "TechConf 2024: Future of AI",
     date: "December 15, 2024",
     time: "9:00 AM - 6:00 PM",
     locationName: "Innovation Center, Silicon Valley",
     locationUrl: "https://maps.app.goo.gl/XYw2mm2jkpsQ6jcT7",
     price: 0,
-    image: "/api/placeholder/1200/400",
     description:
       "Join us for the most anticipated tech conference of the year, featuring keynote speakers, workshops, and networking opportunities focused on artificial intelligence and its impact on our future.",
     speakers: [
@@ -26,6 +27,8 @@ const EventDetailsPage = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         <HeroSection
@@ -48,6 +51,7 @@ const EventDetailsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
