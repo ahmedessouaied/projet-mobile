@@ -7,7 +7,7 @@ const EventCard = ({ event }) => {
     const handleEventDetails = () => {
         navigate('/event-details');
     }
-    // Function to truncate description to a specific length
+    
     const truncateDescription = (text, maxLength = 120) => {
         if (text.length <= maxLength) return text;
         return text.substr(0, maxLength).trim() + '...';

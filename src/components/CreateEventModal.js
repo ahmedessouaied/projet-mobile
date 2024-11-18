@@ -1,5 +1,5 @@
 import React from "react";
-import { X } from "lucide-react"; // Keep the icon import if you're using it
+import { X } from "lucide-react"; 
 
 const CreateEventModal = ({ isVisible, onClose, onSubmit, newEvent, setNewEvent }) => {
   if (!isVisible) return null;

@@ -69,19 +69,19 @@ const EventSlider = () => {
         <div className="max-w-7xl mx-auto px-4 mb-16">
             <ReactCardSlider
                 slides={events}
-                slidesToShow={3} // Default number of slides to show
-                slidesToScroll={1} // How many slides to scroll at a time
+                slidesToShow={3} 
+                slidesToScroll={1} 
                 responsive={[
                     {
-                        breakpoint: 1024, // For tablets and large screens
+                        breakpoint: 1024,
                         settings: {
-                            slidesToShow: 2, // Show 2 slides on tablets
+                            slidesToShow: 2, 
                         },
                     },
                     {
-                        breakpoint: 640, // For mobile screens
+                        breakpoint: 640,
                         settings: {
-                            slidesToShow: 1, // Show 1 slide on mobile
+                            slidesToShow: 1,
                         },
                     },
                 ]}
