@@ -11,17 +11,24 @@ import {
 } from 'lucide-react';
 import AuthLayout from '../components/AuthLayout';
 import Navbar from '../components/Navbar';
+import { auth, db } from '../firebase/firebase'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore'; 
 
-const SignIn = ({ logo, onLogin, onForgotPassword, onSignUpRedirect }) => {
+const SignIn = ({ logo, onForgotPassword, onSignUpRedirect }) => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [authError, setAuthError] = useState('');
+
     const navigate = useNavigate();
 
     const handleSignUp = () => {
         navigate('/signup');
     };
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({});
+    
     const validateForm = () => {
         const newErrors = {};
         if (!email) newErrors.email = "Email is required";
@@ -30,10 +37,30 @@ const SignIn = ({ logo, onLogin, onForgotPassword, onSignUpRedirect }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            onLogin({ email, password });
+        if(validateForm()) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user
+                const userRef = doc(db,'users',user.uid);
+                const docSnap = await getDoc(userRef);
+                if(docSnap.exists()) {
+                    const userData = docSnap.data();
+                    const role = userData.role;
+                    if(role === 'admin') {
+                        navigate('/admin');
+                    } else {
+                        navigate('/profile');
+                    }
+                } else {
+                    setAuthError('User Data not found in Firestore Database');
+                }
+
+            } catch (error) {
+                setAuthError('Invalid Email or Password');
+                console.log('Error signing in: ',error.message);
+            }
         }
     };
     return (

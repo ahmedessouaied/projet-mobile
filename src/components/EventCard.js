@@ -5,10 +5,11 @@ import { Image, Calendar, Clock, MapPin, Users } from "lucide-react";
 const EventCard = ({ event }) => {
     const navigate = useNavigate();
     const handleEventDetails = () => {
-        navigate('/event-details');
+        navigate(`/event-details/${event.id}`);
     }
-    
+
     const truncateDescription = (text, maxLength = 120) => {
+        if (!text || text.length === 0) return "Description not available";  
         if (text.length <= maxLength) return text;
         return text.substr(0, maxLength).trim() + '...';
     };

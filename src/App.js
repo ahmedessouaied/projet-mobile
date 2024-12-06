@@ -1,23 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import EventsPage from './pages/EventsPage';
 import EventDetailsPage from './pages/EventDetailsPage';
-import QuickActions from './components/QuickActions';
 import AdminDashboard from './pages/AdminDashboard';
 import HomePage from './pages/HomePage';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import EventCalendar from './pages/EventCalendar';
+import UserProfile from './pages/UserProfile';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/events" element={<EventsPage />} />
-      <Route path="/event-details" element={<EventDetailsPage />} />
-      <Route path="/admin" element={<AdminDashboard />} />
-    </Routes>
+    <Route path="/" element={<HomePage />} />
+    <Route
+      path="/signin"
+      element={
+        <PublicRoute>
+          <SignIn />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/signup"
+      element={
+        <PublicRoute>
+          <SignUp />
+        </PublicRoute>
+      }
+    />
+    <Route path="/events" element={<EventsPage />} />
+    <Route path="/event-details/:eventId" element={<EventDetailsPage />} />
+    <Route
+      path="/admin"
+      element={
+        <ProtectedRoute requiredRole="admin">
+          <AdminDashboard />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/profile"
+      element={
+        <ProtectedRoute requiredRole="normal">
+          <UserProfile />
+        </ProtectedRoute>
+      }
+    />
+    <Route path="/calendar" element={<EventCalendar />} />
+  </Routes>
+  
   );
 }
 

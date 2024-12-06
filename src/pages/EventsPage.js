@@ -1,55 +1,16 @@
-import { React, useState } from "react";
-import Header from '../components/Header'; 
+import { React, useState, useEffect } from "react";
+import Header from '../components/Header';
 import SearchAndFilter from "../components/SearchAndFilter";
 import EventCard from '../components/EventCard';
 import EmptyState from '../components/EmptyState';
 import Navbar from "../components/Navbar";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebase"; // Assuming you have configured Firebase
 
 const EventsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
-
-    const events = [
-        {
-            id: 1,
-            title: "Tech Innovation Conference",
-            description: "Join us for a day of technological innovation and networking with industry experts.",
-            category: "conference",
-            date: "2024-12-15",
-            time: "09:00",
-            location: "Main Auditorium",
-            price: 50,
-            capacity: 200,
-            organizer: "Computer Science Club",
-            image: "https://www.supcom.tn/storage/app/public/evenements/October2023/Jhm90kQjo2d83ynNQGhw.jpg",
-        },
-        {
-            id: 2,
-            title: "Robotics Competition",
-            description: "Annual robotics competition showcasing student projects and innovations.",
-            category: "competition",
-            date: "2024-12-20",
-            time: "14:00",
-            location: "Engineering Lab",
-            price: 25,
-            capacity: 100,
-            organizer: "Robotics Club",
-            image: "https://ras-supcom.ieee.tn/img/rascolor.png",
-        },
-        {
-            id: 3,
-            title: "IndabaX Tunisia 2024",
-            description: "Join us for a day of technological innovation and networking with industry experts.",
-            category: "competition",
-            date: "2024-12-20",
-            time: "14:00",
-            location: "Higher School of Communication of Tunis",
-            price: 0,
-            capacity: 100,
-            organizer: "IEEE SUP'COM SB",
-            image: "https://indabaxtunisia.com/2024/assets/images/white_logo.png",
-        },
-    ];
+    const [events, setEvents] = useState([]);
 
     const categories = [
         { id: 'all', name: 'All Events' },
@@ -58,33 +19,62 @@ const EventsPage = () => {
         { id: 'workshop', name: 'Workshops' },
     ];
 
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "events"));
+                const eventsData = querySnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        title: data.name,
+                        description: data.description,
+                        category: data.type,
+                        date: data.date?.toDate().toLocaleDateString(), // Format date if necessary
+                        time: data.date?.toDate().toLocaleTimeString(), // Format time if necessary
+                        location: data.location,
+                        price: data.price || 0,
+                        capacity: data.capacity || 0,
+                        organizer: data.organizer || "Unknown",
+                        image: data.thumbnail,
+                    };
+                });
+                setEvents(eventsData);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+
+        fetchEvents();
+    }, []); // Empty dependency array ensures this runs once when the component mounts
+
     const filteredEvents = events.filter(event => {
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             event.description.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === 'all' || event.category === selectedCategory;
+        const matchesCategory = selectedCategory === 'all' || event.type === selectedCategory;
         return matchesSearch && matchesCategory;
     });
 
     return (
         <>
-        <Navbar />
-        <div className="container mx-auto px-4 py-8">
-            <Header />
-            <SearchAndFilter
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                categories={categories}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredEvents.length > 0 ? (
-                    filteredEvents.map(event => <EventCard key={event.id} event={event} />)
-                ) : (
-                    <EmptyState />
-                )}
+            <Navbar />
+            <div className="container mx-auto px-4 py-8">
+                <Header />
+                <SearchAndFilter
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    categories={categories}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredEvents.length > 0 ? (
+                        filteredEvents.map(event => <EventCard key={event.id} event={event} />)
+                    ) : (
+                        <EmptyState />
+                    )}
+                </div>
             </div>
-        </div>
         </>
     );
 };
