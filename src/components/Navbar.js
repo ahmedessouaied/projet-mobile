@@ -68,6 +68,12 @@ const Navbar = () => {
               Events
             </a>
             <a
+              href="/Courses"
+              className="text-gray-700 hover:scale-110 transition duration-300"
+            >
+              Courses
+            </a>
+            <a
               href="/calendar"
               className="text-gray-700 hover:scale-110 transition duration-300"
             >
@@ -160,6 +166,12 @@ const Navbar = () => {
             className="block text-gray-700 hover:text-blue-600 py-2 text-base"
           >
             Events
+          </a>
+          <a
+            href="/courses"
+            className="block text-gray-700 hover:text-blue-600 py-2 text-base"
+          >
+            Courses
           </a>
           <a
             href="/calendar"

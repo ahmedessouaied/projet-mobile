@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import AuthLayout from '../components/AuthLayout';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer'
 import { auth, db } from '../firebase/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -271,6 +272,7 @@ const SignUp = ({ logo }) => {
                     </p>
                 </div>
             </AuthLayout>
+            <Footer/>
         </>
     );
 };

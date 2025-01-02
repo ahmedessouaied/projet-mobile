@@ -4,6 +4,7 @@ import SearchAndFilter from "../components/SearchAndFilter";
 import EventCard from '../components/EventCard';
 import EmptyState from '../components/EmptyState';
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer'
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase"; // Assuming you have configured Firebase
 
@@ -46,7 +47,7 @@ const EventsPage = () => {
         };
 
         fetchEvents();
-    }, []); // Empty dependency array ensures this runs once when the component mounts
+    }, []); 
 
     const filteredEvents = events.filter(event => {
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,7 +59,7 @@ const EventsPage = () => {
     return (
         <>
             <Navbar />
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 mb-8">
                 <Header />
                 <SearchAndFilter
                     searchTerm={searchTerm}
@@ -75,6 +76,7 @@ const EventsPage = () => {
                     )}
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };

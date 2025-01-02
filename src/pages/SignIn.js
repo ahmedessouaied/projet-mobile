@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import AuthLayout from '../components/AuthLayout';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer'
 import { auth, db } from '../firebase/firebase'; 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore'; 
@@ -173,6 +174,7 @@ const SignIn = ({ logo, onForgotPassword, onSignUpRedirect }) => {
                 </p>
             </div>
         </AuthLayout>
+        <Footer/>
         </>
     );
 };

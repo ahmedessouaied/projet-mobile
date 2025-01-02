@@ -10,6 +10,8 @@ import EventCalendar from './pages/EventCalendar';
 import UserProfile from './pages/UserProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
+import Courses from './pages/Courses';
+import About from './pages/About';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
         </PublicRoute>
       }
     />
+    <Route path="/courses" element={<Courses />} />
     <Route path="/events" element={<EventsPage />} />
     <Route path="/event-details/:eventId" element={<EventDetailsPage />} />
     <Route
@@ -49,6 +52,7 @@ function App() {
         </ProtectedRoute>
       }
     />
+    <Route path="/About" element={<About/>}/>
     <Route path="/calendar" element={<EventCalendar />} />
   </Routes>
   

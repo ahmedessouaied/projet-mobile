@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer'
 
 // Mock events data (unchanged)
 const initialEvents = [
@@ -97,7 +98,7 @@ const EventCalendar = () => {
     return (
         <>
         <Navbar />
-        <div className="container mx-auto p-4 ">
+        <div className="container mx-auto p-4 mb-8">
             {/* Previous implementation remains the same up to the event detail modal */}
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
@@ -213,6 +214,7 @@ const EventCalendar = () => {
                 </div>
             )}
         </div>
+        <Footer/>
         </>
     );
 };
