@@ -5,7 +5,7 @@ import { ChevronRight, Calendar, Clock, MapPin, Tag, User, AlertCircle } from 'l
 const EventSlider = () => {
   const events = [
     {
-      image: "/HerosectionHomeimage.png",
+      image: "../images/Entrepreneurship.webp",
       title: "TechPoint S24: Future of AI",
       date: "Saturday, 17th January '24",
       location: "NICHES SCHOOL OF COMMUNICATION",
@@ -17,7 +17,7 @@ const EventSlider = () => {
       price: 0,
     },
     {
-      image: "/HerosectionHomeimage.png",
+      image: "../images/web.jpg",
       title: "Web Development Workshop",
       date: "Thursday, 25th January '24",
       location: "Online",
@@ -29,7 +29,7 @@ const EventSlider = () => {
       price: 20,
     },
     {
-      image: "/HerosectionHomeimage.png",
+      image: "../images/data science.jpg",
       title: "Data Science Symposium",
       date: "Friday, 9th February '24",
       location: "Convention Center",
@@ -41,7 +41,7 @@ const EventSlider = () => {
       price: 50,
     },
     {
-      image: "/HerosectionHomeimage.png",
+      image: "../images/UI-UX.webp",
       title: "UI/UX Design Masterclass",
       date: "Monday, 19th February '24",
       location: "Design Hub",
@@ -53,7 +53,7 @@ const EventSlider = () => {
       price: 35,
     },
     {
-      image: "/HerosectionHomeimage.png",
+      image: "../images/cyber.png",
       title: "Cybersecurity Conference",
       date: "Saturday, 2nd March '24",
       location: "Security Hall",
