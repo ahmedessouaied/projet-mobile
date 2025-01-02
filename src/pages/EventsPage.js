@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from '../components/Header';
 import SearchAndFilter from "../components/SearchAndFilter";
 import EventCard from '../components/EventCard';
@@ -6,7 +6,8 @@ import EmptyState from '../components/EmptyState';
 import Navbar from "../components/Navbar";
 import Footer from '../components/Footer'
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase"; // Assuming you have configured Firebase
+import { db } from "../firebase/firebase";
+import { motion } from 'framer-motion';
 
 const EventsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -47,37 +48,80 @@ const EventsPage = () => {
         };
 
         fetchEvents();
-    }, []); 
+    }, []);
 
     const filteredEvents = events.filter(event => {
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             event.description.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory === 'all' || event.type === selectedCategory;
+        const matchesCategory = selectedCategory === 'all' || event.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
 
+    // Animation Variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delayChildren: 0.3,
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1
+        }
+    };
+
     return (
-        <>
+        <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
             <Navbar />
             <div className="container mx-auto px-4 py-8 mb-8">
-                <Header />
-                <SearchAndFilter
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                    categories={categories}
-                />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Header />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <SearchAndFilter
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        selectedCategory={selectedCategory}
+                        setSelectedCategory={setSelectedCategory}
+                        categories={categories}
+                    />
+                </motion.div>
+                <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
                     {filteredEvents.length > 0 ? (
-                        filteredEvents.map(event => <EventCard key={event.id} event={event} />)
+                        filteredEvents.map(event => (
+                            <motion.div key={event.id} variants={itemVariants} whileHover={{ scale: 1.05 }}>
+                                <EventCard event={event} />
+                            </motion.div>
+                        ))
                     ) : (
-                        <EmptyState />
+                        <motion.div variants={itemVariants}>
+                            <EmptyState />
+                        </motion.div>
                     )}
-                </div>
+                </motion.div>
             </div>
-            <Footer/>
-        </>
+            <Footer />
+        </div>
     );
 };
 

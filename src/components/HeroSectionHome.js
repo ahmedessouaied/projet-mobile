@@ -1,71 +1,94 @@
 import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 
 const HeroSectionHome = () => {
-    const parallaxRef = useRef(null);
+  const parallaxRef = useRef(null);
 
-    useEffect(() => {
-        const parallaxEffect = () => {
-            if (window.innerWidth < 768) {
-                const scrolled = window.scrollY;
-                const parallax = parallaxRef.current;
-                if (parallax) {
-                    parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-            }
-        };
+  useEffect(() => {
+    const parallaxEffect = () => {
+      if (window.innerWidth < 768) {
+        const scrolled = window.scrollY;
+        const parallax = parallaxRef.current;
+        if (parallax) {
+          parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      }
+    };
 
-        window.addEventListener('scroll', parallaxEffect);
-        return () => window.removeEventListener('scroll', parallaxEffect);
-    }, []);
+    window.addEventListener('scroll', parallaxEffect);
+    return () => window.removeEventListener('scroll', parallaxEffect);
+  }, []);
 
-    return (
-        <div className="relative w-full overflow-hidden">
-            {/* Background Image for Mobile */}
-            <div
-                ref={parallaxRef}
-                className="absolute top-0 left-0 w-full h-full md:hidden"
-            >
-                <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay Blur*/}
-                <img
-                    src="/HerosectionHomeimage.png"
-                    alt="Home page Image"
-                    className="w-full h-full object-cover blur-[8px] scale-110"
-                />
+  return (
+    <div className="relative w-full overflow-hidden bg-gray-100 py-12 md:py-16 lg:py-24">
+      {/* Background Image for Mobile */}
+      <div
+        ref={parallaxRef}
+        className="absolute top-0 left-0 w-full h-full md:hidden"
+      >
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <img
+          src="/HerosectionHomeimage.png"
+          alt="Home page"
+          className="w-full h-full object-cover blur-[2px] scale-110"
+        />
+      </div>
+
+      {/* Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full md:w-1/2 text-center md:text-left"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-6">
+              Discover & Engage with University Events
+            </h1>
+            <p className="text-gray-600 text-lg sm:text-xl mb-8">
+              Your one-stop destination for all university club events. Stay
+              connected, explore new interests, and make the most of your
+              campus life.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
+              >
+                Explore Events
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gray-200 text-gray-800 px-8 py-3 rounded-lg font-medium text-lg hover:bg-gray-300 transition-colors"
+              >
+                Learn More
+              </motion.button>
             </div>
+          </motion.div>
 
-            {/* Content Container */}
-            <div className="max-w-7xl mx-auto px-4 py-8 md:py-16 lg:py-24 relative z-20">
-                <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-6 md:gap-12">
-                    {/* Text Content */}
-                    <div className="w-full md:w-1/2">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white md:text-blue-600 mb-4">
-                            Discover a unique selection of university events
-                        </h1>
-                        <p className="text-gray-100 md:text-gray-600 text-base sm:text-lg mb-6 md:mb-8 max-w-lg">
-                            Your central hub for all events hosted by university clubs, bringing students together in one convenient place to stay connected with every activity on campus.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-blue-600 z-20 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm sm:text-base">
-                                Explore
-                            </button>
-                            <button className="border border-white md:border-gray-300 text-white md:text-gray-700 px-6 sm:px-8 py-2.5 sm:py-3 rounded-md hover:bg-white/10 md:hover:bg-gray-50 transition-colors font-semibold text-sm sm:text-base">
-                                Learn more
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Main Image (Hidden on mobile, shown on desktop) */}
-                    <div className="hidden md:block w-full md:w-1/2 flex justify-center md:justify-end">
-                        <img
-                            src="/HerosectionHomeimage.png"
-                            alt="Home page image"
-                            className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-full h-auto object-contain"
-                        />
-                    </div>
-                </div>
-            </div>
+          {/* Main Image (Hidden on mobile, shown on desktop) */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="hidden md:flex w-full md:w-1/2 justify-center md:justify-end"
+          >
+            <img
+              src="/HerosectionHomeimage.png"
+              alt="Home page"
+              className="w-full max-w-lg rounded-lg shadow-xl object-contain"
+            />
+          </motion.div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default HeroSectionHome;
